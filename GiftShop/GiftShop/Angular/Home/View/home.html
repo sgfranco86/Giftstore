@@ -1,0 +1,147 @@
+﻿<script>
+    $( function ()
+    {
+        $( '#side-menu' ).metisMenu( {
+            toggle: false // disable the auto collapse. Default: true.
+        } );
+    } );
+</script>
+<div id="wrapper" ng-init="init()">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: -19px;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="home">
+                <img alt="SourceHOV" src="../../../Images/logo_exela.png" style="height: 30px" />
+            </a>
+        </div>
+        <!-- /.navbar-header -->
+        <ul class="nav navbar-nav navbar-right collapse navbar-collapse" collapse="navCollapsed">
+            <li><a>{{userName}}</a></li>
+            <li class="dropdown" uib-dropdown>
+                <a class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle><i class="fa fa-user fa-fw"></i><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <!-- openChangePassword() -->
+                    <li><a ng-click="ChangePasswd()"><i class="fa fa-key fa-fw"></i>&nbsp;Change Password</a></li>
+                    <li><a ng-click="ShortPasswd()"><i class="fa fa-key fa-fw"></i>&nbsp;Short Password</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i>&nbsp;Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.navbar-top-links -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav in" id="side-menu">
+                    <li>&nbsp; </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i>&nbsp;&nbsp;Site<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;" ng-init="Tab='Home_Site'">
+                            <li ng-show="user.super_user_access==='Y'"><a ui-sref=".Site_site">Site</a> </li>
+                            <li ng-show="true" ng-class="Tab =='susers' ? 'active':''" id="li-users"><a ui-sref="home.susers" ng-click="Tab='susers'">Users</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_routes">Routes</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_stops">Stops</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_Drivers">Drivers</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_trucks">Trucks</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_departments">Departaments</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_Material">Material</a> </li>
+                            <li ng-show="true"><a ui-sref="home.Site_warehouses">Warehouses</a> </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-users fa-fw"></i>&nbsp;&nbsp;Customer<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            <li><a ui-sref="home.client">Client</a> </li>
+                            <li><a ui-sref="home.system">System</a> </li>
+                            <li ng-click="prompt()"><a href="">Replicate </a></li>
+                            <li><a ui-sref="home.chartloc">Chart Loc</a> </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-book fa-fw"></i>&nbsp;&nbsp;Inventory<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            <li><a ui-sref="home.Inventory_Setup">Inventory Setup</a> </li>
+                            <li><a ui-sref="home.inventory">Inventory</a> </li>
+                            <li><a ui-sref="home.barcodeInv">Bar code Inventory</a> </li>
+                            <li><a ui-sref="home.LoadBarcodeInventory">Load BC Inv.</a> </li>
+                            <li><a ui-sref="home.InventoryQA">Inventory QA </a></li>
+                            <li><a ui-sref="home">Reports </a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-gears fa-fw"></i>&nbsp;&nbsp;Activity<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            <li><a ui-sref="home.Activity_OE">Order Entry</a> </li>
+                            <li><a ui-sref="home.Status_Update">Status Update</a> </li>
+                            <li><a ui-sref="home.final">Final</a> </li>
+                            <li><a ui-sref="home.refile">Refile</a> </li>
+                            <li><a ui-sref="home.transmittal">Transmittal</a> </li>
+                            <li><a ui-sref="home.MainTransmittalUpdate">Trans. Update</a> </li>
+                            <li><a ui-sref="home">Project Trans</a> </li>
+                            <li><a ui-sref="home">Rcd Indexing</a> </li>
+                            <li><a ui-sref="home">Search Inv</a> </li>
+                            <li><a ui-sref="home">Box Query</a> </li>
+                            <li><a ui-sref="home">Search History</a> </li>
+                            <li><a ui-sref="home">Removal Order</a> </li>
+                            <li><a ui-sref="home">DXpress Orders</a> </li>
+                            <li><a ui-sref="home">DXpress Transmittals</a> </li>
+                            <li><a ui-sref="home">Reports</a> </li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="home.underdevelopment"><i class="fa fa-table fa-fw"></i>&nbsp;&nbsp;Mgmt Rpts</a> </li>
+                    <li><a ui-sref="home.SignSheet"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;&nbsp;Sign Sheet</a> </li>
+                    <li><a ui-sref="home.Box_Inventory"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;Box Inventory</a> </li>
+                    <li><a ui-sref="home.DosBoxInventory"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;DOS Box Inventory</a> </li>
+                    <li><a ui-sref="home.oldboxLoc"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;Old Box Loc Query</a> </li>
+                    <li><a ui-sref="home.VbaBoxInventory"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;VBA Box Inventory</a> </li>
+                    <li><a ui-sref="home.VbaBoxTransfer"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;VBA Box Transfer</a> </li>
+                    <li><a ui-sref="home.External"><i class="fa fa-cube fa-fw"></i>&nbsp;&nbsp;External Files</a> </li>
+                    <!--                    <li ng-click="ChangePasswd()"><a href=""><i class="fa fa-key fa-fw"></i>&nbsp;&nbsp;Change
+                        Password</a> </li>
+                    <li ng-click="ShortPasswd()"><a href=""><i class="fa fa-key fa-fw"></i>&nbsp;&nbsp;Short
+                        Password</a> </li>-->
+                    <li ng-click="changePrinter()"><a href=""><i class="fa fa-print fa-fw"></i>&nbsp;&nbsp;Change Printer</a> </li>
+                    <li ng-click="changeLabelPrinter()"><a href=""><i class="fa fa-print fa-fw"></i>&nbsp;&nbsp;Change Label Printer</a> </li>
+                    <!--level 3
+                        <li class="">
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level collapse">
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>-->
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+    <div id="page-wrapper" ui-view="container" class="view-container" style="min-height: 680px;">
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
